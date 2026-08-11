@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ゲーム進行中 | ボードゲームナイト</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="game-layout">
+
+  <div class="topbar">
+    <div class="room-tag">部屋コード: <b id="roomIdLabel">----</b></div>
+    <div style="display:flex; gap:.5em;">
+      <button id="btnCopyLink" class="secondary copy-btn">Discord共有用リンクをコピー</button>
+    </div>
+  </div>
+
+  <div class="main-area">
+    <!-- 盤面 -->
+    <div>
+      <div class="board-wrap">
+        <div class="board" id="board"></div>
+      </div>
+      <div class="action-row card" style="margin-top:1em;">
+        <div id="buyPrompt" class="hidden">
+          <p style="margin:0 0 .6em;">このマスはまだ誰の所有でもありません。購入しますか？</p>
+          <div style="display:flex; gap:.6em;">
+            <button id="btnBuy">購入する（<span id="buyPrice"></span>）</button>
+            <button id="btnSkipBuy" class="secondary">購入しない</button>
+          </div>
+        </div>
+        <div id="rollArea" style="display:flex; gap:.8em; align-items:center; flex-wrap:wrap;">
+          <button id="btnRoll">🎲 サイコロを振る</button>
+          <button id="btnTrade" class="secondary">🤝 交渉する</button>
+          <span id="turnHint" class="mono" style="font-size:.8rem; opacity:.7;"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- サイドパネル -->
+    <div class="side-panel">
+      <div class="card">
+        <div class="panel-title">プレイヤー</div>
+        <div id="playerList"></div>
+      </div>
+
+      <div class="card">
+        <div class="panel-title">履歴</div>
+        <div class="log-list" id="logList"></div>
+      </div>
+
+      <div class="card gm-panel hidden" id="gmPanel">
+        <div class="panel-title">GMコマンド</div>
+        <div class="field">
+          <label>対象プレイヤー</label>
+          <select id="gmTarget"></select>
+        </div>
+        <div class="field">
+          <label>所持金を変更</label>
+          <input id="gmMoney" type="number" placeholder="新しい金額">
+        </div>
+        <div class="field">
+          <label>マス位置を変更 (0〜19)</label>
+          <input id="gmPosition" type="number" min="0" max="19" placeholder="新しい位置">
+        </div>
+        <div style="display:flex; gap:.5em; flex-wrap:wrap;">
+          <button id="btnGmApply">適用する</button>
+          <button id="btnGmMakeGM" class="secondary">このプレイヤーをGMにする</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-note">状態はFirebaseに自動保存されます。閉じても数か月後に同じリンクから再開できます。</p>
+</div>
+
+<!-- 交渉モーダル -->
+<div class="modal-backdrop hidden" id="tradeModal">
+  <div class="modal card">
+    <h3>交渉する</h3>
+    <div class="field">
+      <label>相手プレイヤー</label>
+      <select id="tradeTarget"></select>
+    </div>
+    <div class="field">
+      <label>渡すお金</label>
+      <input id="tradeMoney" type="number" min="0" placeholder="0">
+    </div>
+    <div class="field">
+      <label>譲渡する土地（任意）</label>
+      <select id="tradeProperty">
+        <option value="">なし</option>
+      </select>
+    </div>
+    <div style="display:flex; gap:.6em; margin-top:1em;">
+      <button id="btnTradeConfirm">送る</button>
+      <button id="btnTradeCancel" class="secondary">キャンセル</button>
+    </div>
+    <div id="tradeError" class="error-text"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="board-data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

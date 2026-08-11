@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 友達内での利用が前提のシンプルなルール:
+    // ログイン済み（匿名認証含む）なら誰でも部屋の読み書きができる。
+    match /rooms/{roomId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discordボードゲーム</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="lobby-wrap">
+  <div class="lobby-box">
+    <div class="brand">
+      <span class="dice-icon">🎲</span>
+      <h1>ボードゲームナイト</h1>
+      <p>Discordの仲間と、いつでも中断・再開できるボード対戦</p>
+    </div>
+
+    <div class="card">
+      <div class="tabs">
+        <button id="tabCreate" class="active">部屋を作る</button>
+        <button id="tabJoin">部屋に入る</button>
+      </div>
+
+      <!-- 作成 -->
+      <div id="paneCreate">
+        <div class="field">
+          <label for="createName">あなたの名前</label>
+          <input id="createName" placeholder="例：たろう" maxlength="16">
+        </div>
+        <button id="btnCreate" style="width:100%">部屋を作成する</button>
+        <div id="createError" class="error-text"></div>
+      </div>
+
+      <!-- 参加 -->
+      <div id="paneJoin" class="hidden">
+        <div class="field">
+          <label for="joinRoomId">部屋コード</label>
+          <input id="joinRoomId" placeholder="例：AB12CD" maxlength="8" style="text-transform:uppercase">
+        </div>
+        <div class="field">
+          <label for="joinName">あなたの名前</label>
+          <input id="joinName" placeholder="例：はなこ" maxlength="16">
+        </div>
+        <button id="btnJoin" style="width:100%">部屋に入る</button>
+        <div id="joinError" class="error-text"></div>
+      </div>
+    </div>
+
+    <p class="footer-note">作成すると自動でGM（進行役）になります。URLをDiscordに貼って共有しましょう。</p>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="lobby.js"></script>
+</body>
+</html>

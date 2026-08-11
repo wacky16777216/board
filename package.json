@@ -1,0 +1,12 @@
+{
+  "name": "discord-boardgame",
+  "version": "1.0.0",
+  "description": "Discordの仲間と遊べるモノポリー風ターン制ボードゲーム",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
